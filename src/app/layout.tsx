@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
+import { inter } from "./ui/fonts";
 import "./globals.css";
+import { Header } from "@/components/header";
 
 export const metadata: Metadata = {
-	title: "Taskify",
-	description: "Organize suas tarefas, aumente sua produtividade.",
+	title: {
+		template: "%s | Taskify",
+		default: "Taskify | Organize suas tarefas, aumente sua produtividade",
+	},
+	description:
+		"O melhor organizador de tarefas para realizar seus objetivos.",
 };
 
 export default function RootLayout({
@@ -13,12 +19,10 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="pt-BR">
-			<head>
-				<title>
-					Taskify | Organize suas tarefas, aumente sua produtividade
-				</title>
-			</head>
-			<body>{children}</body>
+			<body className={`${inter.className} antialiased`}>
+				<Header />
+				{children}
+			</body>
 		</html>
 	);
 }
