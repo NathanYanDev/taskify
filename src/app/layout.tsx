@@ -13,6 +13,11 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="pt-BR">
+			<head>
+				<title>
+					Taskify | Organize suas tarefas, aumente sua produtividade
+				</title>
+			</head>
 			<body>{children}</body>
 		</html>
 	);
