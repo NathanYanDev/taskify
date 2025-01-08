@@ -1,4 +1,4 @@
-import { signOut } from "@/auth";
+import { signOut } from "@src/auth";
 import type { Session } from "next-auth";
 
 type SignOutProps = {

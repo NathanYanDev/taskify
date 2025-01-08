@@ -1,4 +1,4 @@
-import { signIn } from "@/auth";
+import { signIn } from "@src/auth";
 
 export default function SignInBtn() {
 	return (

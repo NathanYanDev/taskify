@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { rubik } from "./ui/fonts";
-import heroImage from "../../public/assets/hero.png";
+import heroImage from "@public/assets/hero.png";
 
 export default function Home() {
 	return (
