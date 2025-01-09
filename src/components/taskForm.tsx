@@ -4,7 +4,7 @@ import { Textarea } from "./textarea";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TaskFormSchema } from "@src/schemas/taskSchema";
-import type { TaskSchema } from "@src/schemas/taskSchema";
+import { UserInfoSchema } from "@src/schemas/userInfoSchema";
 import type { z } from "zod";
 import type { Session } from "next-auth";
 import { setTask } from "@src/app/api/utils/setTask";
@@ -13,7 +13,9 @@ type FormProps = {
 	session: Session;
 };
 
-export const Form = ({ session }: FormProps) => {
+const TaskSchema = TaskFormSchema.merge(UserInfoSchema);
+
+export const TaskForm = ({ session }: FormProps) => {
 	const {
 		register,
 		handleSubmit,

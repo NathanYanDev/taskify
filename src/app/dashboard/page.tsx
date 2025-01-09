@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { Form } from "@src/components/form";
+import { TaskForm } from "@src/components/taskForm";
 import { getTasks } from "@src/app/api/utils/getTasks";
 import { TaskList } from "@src/components/taskList";
 import { auth } from "@src/auth";
@@ -23,7 +23,7 @@ export default async function Dashboard() {
 					<h1 className="text-3xl text-white font-bold mb-2">
 						Qual sua tarefa?
 					</h1>
-					<Form session={session} />
+					<TaskForm session={session} />
 				</div>
 			</section>
 			<section className="mt-8 mx-auto px-[18px] w-full max-w-5xl flex flex-col">
