@@ -6,7 +6,7 @@ export const TaskFormSchema = z.object({
 });
 
 export const TaskSchema = z.object({
-	task: z.string().min(1, "O campo não pode estar vazio"),
+	task: z.string().min(1, "A tarefa não pode estar vazia"),
 	createdAt: z.date(),
 	createdBy: z.object({
 		name: z.string(),

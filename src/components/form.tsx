@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Textarea } from "./textarea";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,11 +14,14 @@ type FormProps = {
 };
 
 export const Form = ({ session }: FormProps) => {
-	const [input, setInput] = useState("");
-	const [publicTask, setPublicTask] = useState(false);
-
-	const { register, handleSubmit } = useForm<z.infer<typeof TaskFormSchema>>({
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+		reset,
+	} = useForm<z.infer<typeof TaskFormSchema>>({
 		resolver: zodResolver(TaskFormSchema),
+		defaultValues: { task: "", isPublic: false },
 	});
 
 	const handleTaskSubmit = (data: z.infer<typeof TaskFormSchema>) => {
@@ -33,37 +35,33 @@ export const Form = ({ session }: FormProps) => {
 			},
 		};
 
+		reset({ task: "", isPublic: false });
+
 		setTask(task);
-		setInput("");
-		setPublicTask(false);
 	};
 
 	return (
 		<form onSubmit={handleSubmit(handleTaskSubmit)}>
 			<Textarea
 				placeholder="Digite qual sua tarefa..."
-				value={input}
-				{...register("task", {
-					onChange(event) {
-						setInput(event.target.value);
-					},
-				})}
+				{...register("task")}
 			/>
+			{errors.task && (
+				<span className="text-red-600 font-bold">
+					{errors.task?.message}
+				</span>
+			)}
 			<div className="flex items-center my-3">
 				<input
 					type="checkbox"
 					id="public-task"
 					className="w-[18px] h-[18px]"
-					checked={publicTask}
-					{...register("isPublic", {
-						onChange: () => setPublicTask(!publicTask),
-					})}
+					{...register("isPublic")}
 				/>
 				<label htmlFor="public-task" className="text-white ml-2">
 					Deixar sua tarefa pública?
 				</label>
 			</div>
-
 			<button
 				type="submit"
 				className="w-full rounded text-white bg-secondary py-3 text-lg hover:text-secondary hover:bg-white checked:bg-white"
