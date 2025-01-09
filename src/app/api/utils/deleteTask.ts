@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 
 export async function deleteTask(id: string) {
 	const taskCollection = db.collection(
-		process.env.MONGODB_COLLECTION as string,
+		process.env.MONGODB_TASK_COLLECTION as string,
 	);
 
 	const objId = new ObjectId(id);

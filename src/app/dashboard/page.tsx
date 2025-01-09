@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { TaskForm } from "@src/components/taskForm";
+import { TaskForm } from "@src/components/tasks/taskForm";
 import { getTasks } from "@src/app/api/utils/getTasks";
-import { TaskList } from "@src/components/taskList";
+import { TaskList } from "@src/components/tasks/taskList";
 import { auth } from "@src/auth";
 
 export const metadata: Metadata = {
@@ -30,10 +30,10 @@ export default async function Dashboard() {
 				<h1 className="text-center text-3xl font-bold mb-[14px]">
 					Minhas tarefas
 				</h1>
-				{tasks ? (
+				{tasks && tasks?.length > 0 ? (
 					<TaskList tasks={tasks} />
 				) : (
-					<p className="text-lg font-bold">
+					<p className="text-lg">
 						Sem tarefas criadas até o momento...
 					</p>
 				)}

@@ -1,9 +1,12 @@
 "use server";
 
 import { db } from "@lib/mongodb";
+import { TaskFormSchema } from "@src/schemas/taskSchema";
+import { UserInfoSchema } from "@src/schemas/userInfoSchema";
 
-import type { TaskSchema } from "@src/schemas/taskSchema";
 import type { z } from "zod";
+
+const TaskSchema = TaskFormSchema.merge(UserInfoSchema);
 
 export type Task = z.infer<typeof TaskSchema>;
 
@@ -14,7 +17,7 @@ export type TaskWithId = Task & {
 export async function getTasks(currentUserEmail: string) {
 	try {
 		const taskCollection = db.collection(
-			process.env.MONGODB_COLLECTION as string,
+			process.env.MONGODB_TASK_COLLECTION as string,
 		);
 
 		const isEmpty = (await taskCollection.countDocuments()) < 1;

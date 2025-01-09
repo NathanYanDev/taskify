@@ -1,22 +1,24 @@
 "use client";
 
-import { Textarea } from "./textarea";
+import { Textarea } from "@src/components/textarea";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CommentFormSchema } from "@src/schemas/commentSchema";
-import { UserInfoSchema } from "@src/schemas/userInfoSchema";
-import type { z } from "zod";
+import {
+	CommentFormSchema,
+	type CommentInfo,
+} from "@src/schemas/commentSchema";
 import type { Session } from "next-auth";
+import { setComment } from "@src/app/api/utils/setComment";
+import type { z } from "zod";
 
 type Comment = z.infer<typeof CommentFormSchema>;
 
-const CommentInfo = CommentFormSchema.merge(UserInfoSchema);
-
 type FormProps = {
-	session: Session;
+	session: Session | null;
+	taskId: string;
 };
 
-export const CommentForm = ({ session }: FormProps) => {
+export const CommentForm = ({ session, taskId }: FormProps) => {
 	const {
 		handleSubmit,
 		register,
@@ -30,6 +32,7 @@ export const CommentForm = ({ session }: FormProps) => {
 	const handleCommentSubmit = (data: Comment) => {
 		if (session?.user) {
 			const newComment: z.infer<typeof CommentInfo> = {
+				taskID: taskId,
 				comment: data.comment,
 				createdAt: new Date(),
 				createdBy: {
@@ -38,7 +41,8 @@ export const CommentForm = ({ session }: FormProps) => {
 				},
 			};
 
-			console.log(newComment);
+			setComment(newComment, taskId);
+			resetField("comment");
 		}
 	};
 
@@ -51,9 +55,10 @@ export const CommentForm = ({ session }: FormProps) => {
 			{errors && <span>{errors.comment?.message}</span>}
 			<button
 				type="submit"
-				className="w-full py-3 rounded text-white bg-secondary text-lg"
+				className="w-full py-3 rounded text-white bg-secondary text-lg disabled:cursor-not-allowed disabled:opacity-25"
+				disabled={!session}
 			>
-				Comentar
+				{!session ? "Faça o login para comentar!" : "Comentar"}
 			</button>
 		</form>
 	);

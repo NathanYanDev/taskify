@@ -1,8 +1,10 @@
 import Image from "next/image";
 import { rubik } from "./ui/fonts";
 import heroImage from "@public/assets/hero.png";
+import getPostAndCommentQty from "./api/utils/getPostAndCommentQty";
 
-export default function Home() {
+export default async function Home() {
+	const { taskQty, commentQty } = await getPostAndCommentQty();
 	return (
 		<main className="screen-height w-screen flex flex-col justify-center items-center bg-background">
 			<div className="flex flex-col items-center justify-center">
@@ -21,10 +23,10 @@ export default function Home() {
 
 			<div className="flex justify-center items-center w-full sm:gap-5 flex-col sm:flex-row">
 				<section className="px-11 py-3 rounded-md bg-primary hover:scale-110 sm:w-auto w-4/5 sm:mb-0 mb-3 sm:text-left text-center">
-					<span className="font-bold">+12 posts</span>
+					<span className="font-bold">+{taskQty} posts</span>
 				</section>
 				<section className="px-11 py-3 rounded-md bg-primary hover:scale-110 sm:w-auto w-4/5 sm:mb-0 mb-3 sm:text-left text-center">
-					<span className="font-bold">+90 comentários</span>
+					<span className="font-bold">+{commentQty} comentários</span>
 				</section>
 			</div>
 		</main>

@@ -8,7 +8,7 @@ export async function getTask(id: string) {
 	try {
 		const taskId = new ObjectId(id);
 		const taskCollection = db.collection(
-			process.env.MONGODB_COLLECTION as string,
+			process.env.MONGODB_TASK_COLLECTION as string,
 		);
 
 		const taskFromDB = await taskCollection.findOne({ _id: taskId });

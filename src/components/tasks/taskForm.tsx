@@ -1,6 +1,6 @@
 "use client";
 
-import { Textarea } from "./textarea";
+import { Textarea } from "@src/components/textarea";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TaskFormSchema } from "@src/schemas/taskSchema";
