@@ -3,6 +3,7 @@
 import { db } from "@lib/mongodb";
 
 import type { TaskSchema } from "@src/schemas/taskSchema";
+import type { ObjectId } from "mongodb";
 import type { z } from "zod";
 
 export type Task = z.infer<typeof TaskSchema>;
