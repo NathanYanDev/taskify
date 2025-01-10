@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { inter } from "./ui/fonts";
 import "./globals.css";
 import { Header } from "@src/components/header";
+import Head from "next/head";
 
 export const metadata: Metadata = {
 	title: {

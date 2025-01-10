@@ -3,6 +3,9 @@ import { auth } from "@src/auth";
 import SignOutBtn from "./signOutBtn";
 import SignInBtn from "./signInBtn";
 
+import Image from "next/image";
+import Logo from "@public/assets/logo.svg";
+
 export async function Header() {
 	const session = await auth();
 
@@ -11,9 +14,7 @@ export async function Header() {
 			<section className="px-[18px] w-full max-w-5xl flex items-center justify-between">
 				<nav className="flex items-center gap-3">
 					<Link href="/">
-						<h1 className="sm:text-4xl text-3xl text-white">
-							Task<span className="text-red-600">ify</span>
-						</h1>
+						<Image src={Logo} alt="Logo" width={76} height={76} />
 					</Link>
 					{session && (
 						<Link
